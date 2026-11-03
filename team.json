@@ -1,0 +1,32 @@
+{
+  "members": [
+    {
+      "role": "Group Lead",
+      "name": "Yashasvee Singh",
+      "enrollment_no": "2501010593",
+      "section":"A",
+      "github_username": "yashasveesingh078"
+    },
+    {
+      "role": "Member 2",
+      "name": "Nischal Jain",
+      "enrollment_no": "2501010713",
+      "section":"B",
+      "github_username": "NischalJain12"
+    },
+    {
+      "role": "Member 3",
+      "name": "Siddhi Varshney",
+      "enrollment_no": "2501010655",
+      "section":"B",
+      "github_username": "siddhivarshney44-dev"
+    },
+    {
+      "role": "Member 4",
+      "name": "Svarnim",
+      "enrollment_no": "2501010467",
+      "section":"A",
+      "github_username": "svarnim07"
+    }
+  ]
+}

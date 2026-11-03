@@ -20,14 +20,14 @@
 
 ## Team details (fill in before you start)
 
-| Role | Name | Enrollment No. | GitHub Username |
-|------|------|----------------|-----------------|
-| Group Lead | | | |
-| Member 2 | | | |
-| Member 3 | | | |
-| Member 4 | | | |
+| Role | Name | Enrollment No. | GitHub Username | Section
+|------|------|----------------|-----------------|-----------
+| Group Lead | Yashasvee Singh | 2501010593 | yashasveesingh078 |A
+| Member 2 | Nischal Jain | 2501010713 | NischalJain12 | B
+| Member 3 | Siddhi Varshney | 2501010655 | siddhivarshney44-dev| B
+| Member 4 | Svarnim | 2501010467 | svarnim07 | A
 
-**Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
+Team No.:T0097  Repository URL:https://github.com/edusatyaki/DBMS-Duolingo-Language-Learning.git
 
 ---
 
