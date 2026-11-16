@@ -1,0 +1,102 @@
+erDiagram
+    %% Duolingo Language Learning Database
+    %% Team T0097 | PostgreSQL 18 | schema: duolingo
+    %% PK = Primary Key | FK = Foreign Key | UK = Unique Key
+    %% NULL marks an optional column. All other listed columns are NOT NULL.
+    %% Composite primary keys are used by enrollments, learner_achievements,
+    %% daily_activity, and league_memberships.
+
+    languages ||--o{ courses : "1:N from_lang"
+    languages ||--o{ courses : "1:N learning_lang"
+    courses ||--o{ units : "1:N has units"
+    units ||--o{ lessons : "1:N has lessons"
+    courses ||--o{ enrollments : "1:N has enrollments"
+    learners ||--o{ enrollments : "1:N enrolls in courses"
+    learners ||--o{ lesson_attempts : "1:N makes attempts"
+    lessons ||--o{ lesson_attempts : "1:N has attempts"
+    achievements ||--o{ learner_achievements : "1:N earned by learners"
+    learners ||--o{ learner_achievements : "1:N earns achievements"
+    learners ||--o{ daily_activity : "1:N daily activity records"
+    learners ||--o{ league_memberships : "1:N league memberships"
+    learners |o--o{ learners : "0:N referred learners (referred_by)"
+
+    languages {
+        VARCHAR(2) language_code PK "NOT NULL"
+        VARCHAR(40) language_name UK "NOT NULL"
+    }
+    courses {
+        SMALLINT course_id PK "NOT NULL"
+        VARCHAR(2) from_lang FK "NOT NULL"
+        VARCHAR(2) learning_lang FK "NOT NULL"
+        VARCHAR(80) title UK "NOT NULL"
+        DATE launched_on "NOT NULL"
+    }
+    units {
+        INTEGER unit_id PK "NOT NULL"
+        SMALLINT course_id FK "NOT NULL"
+        SMALLINT unit_no "NOT NULL"
+        VARCHAR(80) title "NOT NULL"
+        VARCHAR(2) cefr_level "NOT NULL"
+    }
+    lessons {
+        INTEGER lesson_id PK "NOT NULL"
+        INTEGER unit_id FK "NOT NULL"
+        SMALLINT lesson_no "NOT NULL"
+        VARCHAR(10) lesson_type "NOT NULL"
+        SMALLINT xp_value "NOT NULL"
+    }
+    achievements {
+        SMALLINT achievement_id PK "NOT NULL"
+        VARCHAR(30) code UK "NOT NULL"
+        VARCHAR(60) name UK "NOT NULL"
+    }
+    enrollments {
+        INTEGER learner_id PK, FK "NOT NULL, part of composite PK"
+        SMALLINT course_id PK, FK "NOT NULL, part of composite PK"
+        TIMESTAMPTZ enrolled_at "NOT NULL"
+        INTEGER total_xp "NOT NULL"
+        BOOLEAN is_active "NOT NULL"
+    }
+    learners {
+        INTEGER learner_id PK "NOT NULL"
+        VARCHAR(30) username UK "NOT NULL"
+        VARCHAR(254) email UK "NOT NULL"
+        VARCHAR(2) country_code "NOT NULL"
+        SMALLINT daily_goal_xp "NOT NULL"
+        VARCHAR(5) subscription "NOT NULL"
+        INTEGER referred_by FK "NULL"
+        TIMESTAMPTZ joined_at "NOT NULL"
+    }
+    lesson_attempts {
+        BIGINT attempt_id PK "NOT NULL"
+        INTEGER learner_id FK "NOT NULL"
+        INTEGER lesson_id FK "NOT NULL"
+        TIMESTAMPTZ started_at "NOT NULL"
+        TIMESTAMPTZ completed_at "NULL"
+        SMALLINT mistakes "NOT NULL"
+        SMALLINT hearts_lost "NOT NULL"
+        SMALLINT xp_earned "NOT NULL"
+        BOOLEAN is_perfect "NOT NULL"
+        VARCHAR(7) device "NOT NULL"
+    }
+    learner_achievements {
+        INTEGER learner_id PK, FK "NOT NULL, part of composite PK"
+        SMALLINT achievement_id PK, FK "NOT NULL, part of composite PK"
+        TIMESTAMPTZ earned_at "NOT NULL"
+    }
+    daily_activity {
+        INTEGER learner_id PK, FK "NOT NULL, part of composite PK"
+        DATE activity_date PK "NOT NULL, part of composite PK"
+        INTEGER xp "NOT NULL"
+        SMALLINT lessons_completed "NOT NULL"
+        BOOLEAN used_streak_freeze "NOT NULL"
+    }
+    league_memberships {
+        INTEGER learner_id PK, FK "NOT NULL, part of composite PK"
+        DATE week_start PK "NOT NULL, part of composite PK"
+        VARCHAR(8) tier "NOT NULL"
+        INTEGER cohort_id "NOT NULL"
+        INTEGER weekly_xp "NOT NULL"
+        SMALLINT final_rank "NULL"
+        VARCHAR(8) result "NULL"
+    }
