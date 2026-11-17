@@ -1,0 +1,120 @@
+=== R24 run 1 ===
+Finalize GroupAggregate  (cost=5359.87..5360.91 rows=5 width=43) (actual time=129.181..131.946 rows=5.00 loops=1)
+  Group Key: u.cefr_level
+  Buffers: shared hit=1811
+  ->  Gather Merge  (cost=5359.87..5360.78 rows=8 width=43) (actual time=129.165..131.926 rows=10.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=1811
+        ->  Sort  (cost=4359.86..4359.87 rows=5 width=43) (actual time=126.461..126.464 rows=5.00 loops=2)
+              Sort Key: u.cefr_level
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=1811
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              ->  Partial HashAggregate  (cost=4359.75..4359.80 rows=5 width=43) (actual time=124.564..124.568 rows=5.00 loops=2)
+                    Group Key: u.cefr_level
+                    Batches: 1  Memory Usage: 32kB
+                    Buffers: shared hit=1803
+                    Worker 0:  Batches: 1  Memory Usage: 32kB
+                    ->  Hash Join  (cost=58.55..3529.01 rows=110765 width=5) (actual time=2.524..83.517 rows=94150.00 loops=2)
+                          Hash Cond: (l.unit_id = u.unit_id)
+                          Buffers: shared hit=1803
+                          ->  Hash Join  (cost=51.60..3225.71 rows=110765 width=6) (actual time=2.442..52.913 rows=94150.00 loops=2)
+                                Hash Cond: (a.lesson_id = l.lesson_id)
+                                Buffers: shared hit=1799
+                                ->  Parallel Seq Scan on lesson_attempts a  (cost=0.00..2882.65 rows=110765 width=6) (actual time=0.003..10.627 rows=94150.00 loops=2)
+                                      Buffers: shared hit=1775
+                                ->  Hash  (cost=29.60..29.60 rows=1760 width=8) (actual time=2.425..2.425 rows=1760.00 loops=2)
+                                      Buckets: 2048  Batches: 1  Memory Usage: 85kB
+                                      Buffers: shared hit=24
+                                      ->  Seq Scan on lessons l  (cost=0.00..29.60 rows=1760 width=8) (actual time=0.010..0.168 rows=1760.00 loops=2)
+                                            Buffers: shared hit=24
+                          ->  Hash  (cost=4.20..4.20 rows=220 width=7) (actual time=0.072..0.072 rows=220.00 loops=2)
+                                Buckets: 1024  Batches: 1  Memory Usage: 17kB
+                                Buffers: shared hit=4
+                                ->  Seq Scan on units u  (cost=0.00..4.20 rows=220 width=7) (actual time=0.016..0.037 rows=220.00 loops=2)
+                                      Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=327
+Planning Time: 1.116 ms
+Execution Time: 132.191 ms
+=== R24 run 2 ===
+Finalize GroupAggregate  (cost=5359.87..5360.91 rows=5 width=43) (actual time=131.797..132.412 rows=5.00 loops=1)
+  Group Key: u.cefr_level
+  Buffers: shared hit=1811
+  ->  Gather Merge  (cost=5359.87..5360.78 rows=8 width=43) (actual time=131.784..132.397 rows=10.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=1811
+        ->  Sort  (cost=4359.86..4359.87 rows=5 width=43) (actual time=124.697..124.701 rows=5.00 loops=2)
+              Sort Key: u.cefr_level
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=1811
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              ->  Partial HashAggregate  (cost=4359.75..4359.80 rows=5 width=43) (actual time=124.664..124.668 rows=5.00 loops=2)
+                    Group Key: u.cefr_level
+                    Batches: 1  Memory Usage: 32kB
+                    Buffers: shared hit=1803
+                    Worker 0:  Batches: 1  Memory Usage: 32kB
+                    ->  Hash Join  (cost=58.55..3529.01 rows=110765 width=5) (actual time=2.552..89.362 rows=94150.00 loops=2)
+                          Hash Cond: (l.unit_id = u.unit_id)
+                          Buffers: shared hit=1803
+                          ->  Hash Join  (cost=51.60..3225.71 rows=110765 width=6) (actual time=0.450..60.765 rows=94150.00 loops=2)
+                                Hash Cond: (a.lesson_id = l.lesson_id)
+                                Buffers: shared hit=1799
+                                ->  Parallel Seq Scan on lesson_attempts a  (cost=0.00..2882.65 rows=110765 width=6) (actual time=0.005..16.323 rows=94150.00 loops=2)
+                                      Buffers: shared hit=1775
+                                ->  Hash  (cost=29.60..29.60 rows=1760 width=8) (actual time=0.426..0.426 rows=1760.00 loops=2)
+                                      Buckets: 2048  Batches: 1  Memory Usage: 85kB
+                                      Buffers: shared hit=24
+                                      ->  Seq Scan on lessons l  (cost=0.00..29.60 rows=1760 width=8) (actual time=0.015..0.173 rows=1760.00 loops=2)
+                                            Buffers: shared hit=24
+                          ->  Hash  (cost=4.20..4.20 rows=220 width=7) (actual time=2.094..2.094 rows=220.00 loops=2)
+                                Buckets: 1024  Batches: 1  Memory Usage: 17kB
+                                Buffers: shared hit=4
+                                ->  Seq Scan on units u  (cost=0.00..4.20 rows=220 width=7) (actual time=0.018..0.041 rows=220.00 loops=2)
+                                      Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=327
+Planning Time: 1.062 ms
+Execution Time: 132.653 ms
+=== R24 run 3 ===
+Finalize GroupAggregate  (cost=5359.87..5360.91 rows=5 width=43) (actual time=125.792..128.439 rows=5.00 loops=1)
+  Group Key: u.cefr_level
+  Buffers: shared hit=1811
+  ->  Gather Merge  (cost=5359.87..5360.78 rows=8 width=43) (actual time=125.782..128.425 rows=10.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=1811
+        ->  Sort  (cost=4359.86..4359.87 rows=5 width=43) (actual time=121.603..121.606 rows=5.00 loops=2)
+              Sort Key: u.cefr_level
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=1811
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              ->  Partial HashAggregate  (cost=4359.75..4359.80 rows=5 width=43) (actual time=121.572..121.576 rows=5.00 loops=2)
+                    Group Key: u.cefr_level
+                    Batches: 1  Memory Usage: 32kB
+                    Buffers: shared hit=1803
+                    Worker 0:  Batches: 1  Memory Usage: 32kB
+                    ->  Hash Join  (cost=58.55..3529.01 rows=110765 width=5) (actual time=2.527..88.495 rows=94150.00 loops=2)
+                          Hash Cond: (l.unit_id = u.unit_id)
+                          Buffers: shared hit=1803
+                          ->  Hash Join  (cost=51.60..3225.71 rows=110765 width=6) (actual time=2.445..57.677 rows=94150.00 loops=2)
+                                Hash Cond: (a.lesson_id = l.lesson_id)
+                                Buffers: shared hit=1799
+                                ->  Parallel Seq Scan on lesson_attempts a  (cost=0.00..2882.65 rows=110765 width=6) (actual time=0.004..10.165 rows=94150.00 loops=2)
+                                      Buffers: shared hit=1775
+                                ->  Hash  (cost=29.60..29.60 rows=1760 width=8) (actual time=2.429..2.430 rows=1760.00 loops=2)
+                                      Buckets: 2048  Batches: 1  Memory Usage: 85kB
+                                      Buffers: shared hit=24
+                                      ->  Seq Scan on lessons l  (cost=0.00..29.60 rows=1760 width=8) (actual time=0.010..0.170 rows=1760.00 loops=2)
+                                            Buffers: shared hit=24
+                          ->  Hash  (cost=4.20..4.20 rows=220 width=7) (actual time=0.072..0.073 rows=220.00 loops=2)
+                                Buckets: 1024  Batches: 1  Memory Usage: 17kB
+                                Buffers: shared hit=4
+                                ->  Seq Scan on units u  (cost=0.00..4.20 rows=220 width=7) (actual time=0.016..0.037 rows=220.00 loops=2)
+                                      Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=327
+Planning Time: 0.981 ms
+Execution Time: 128.634 ms

@@ -1,0 +1,78 @@
+=== R09 run 1 ===
+Finalize GroupAggregate  (cost=4050.19..4166.06 rows=546 width=12) (actual time=59.723..60.261 rows=30.00 loops=1)
+  Group Key: activity_date
+  Buffers: shared hit=8 read=1032
+  ->  Gather Merge  (cost=4050.19..4155.96 rows=928 width=12) (actual time=59.718..60.247 rows=60.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=8 read=1032
+        ->  Sort  (cost=3050.18..3051.55 rows=546 width=12) (actual time=54.305..54.307 rows=30.00 loops=2)
+              Sort Key: activity_date
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=8 read=1032
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              ->  Partial HashAggregate  (cost=3019.90..3025.36 rows=546 width=12) (actual time=54.272..54.280 rows=30.00 loops=2)
+                    Group Key: activity_date
+                    Batches: 1  Memory Usage: 49kB
+                    Buffers: shared read=1032
+                    Worker 0:  Batches: 1  Memory Usage: 49kB
+                    ->  Parallel Seq Scan on daily_activity  (cost=0.00..2978.71 rows=8238 width=4) (actual time=0.714..53.045 rows=6957.50 loops=2)
+                          Filter: ((xp > 0) AND (activity_date >= '2026-06-01'::date) AND (activity_date <= '2026-06-30'::date))
+                          Rows Removed by Filter: 87597
+                          Buffers: shared read=1032
+Planning:
+  Buffers: shared hit=115
+Planning Time: 0.367 ms
+Execution Time: 60.425 ms
+=== R09 run 2 ===
+Finalize GroupAggregate  (cost=4050.19..4166.06 rows=546 width=12) (actual time=17.938..19.088 rows=30.00 loops=1)
+  Group Key: activity_date
+  Buffers: shared hit=1040
+  ->  Gather Merge  (cost=4050.19..4155.96 rows=928 width=12) (actual time=17.934..19.075 rows=60.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=1040
+        ->  Sort  (cost=3050.18..3051.55 rows=546 width=12) (actual time=12.261..12.263 rows=30.00 loops=2)
+              Sort Key: activity_date
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=1040
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              ->  Partial HashAggregate  (cost=3019.90..3025.36 rows=546 width=12) (actual time=12.231..12.238 rows=30.00 loops=2)
+                    Group Key: activity_date
+                    Batches: 1  Memory Usage: 49kB
+                    Buffers: shared hit=1032
+                    Worker 0:  Batches: 1  Memory Usage: 49kB
+                    ->  Parallel Seq Scan on daily_activity  (cost=0.00..2978.71 rows=8238 width=4) (actual time=0.011..11.242 rows=6957.50 loops=2)
+                          Filter: ((xp > 0) AND (activity_date >= '2026-06-01'::date) AND (activity_date <= '2026-06-30'::date))
+                          Rows Removed by Filter: 87597
+                          Buffers: shared hit=1032
+Planning:
+  Buffers: shared hit=115
+Planning Time: 0.350 ms
+Execution Time: 19.246 ms
+=== R09 run 3 ===
+Finalize GroupAggregate  (cost=4050.19..4166.06 rows=546 width=12) (actual time=16.426..18.903 rows=30.00 loops=1)
+  Group Key: activity_date
+  Buffers: shared hit=1040
+  ->  Gather Merge  (cost=4050.19..4155.96 rows=928 width=12) (actual time=16.420..18.888 rows=60.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=1040
+        ->  Sort  (cost=3050.18..3051.55 rows=546 width=12) (actual time=13.152..13.154 rows=30.00 loops=2)
+              Sort Key: activity_date
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=1040
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              ->  Partial HashAggregate  (cost=3019.90..3025.36 rows=546 width=12) (actual time=13.124..13.131 rows=30.00 loops=2)
+                    Group Key: activity_date
+                    Batches: 1  Memory Usage: 49kB
+                    Buffers: shared hit=1032
+                    Worker 0:  Batches: 1  Memory Usage: 49kB
+                    ->  Parallel Seq Scan on daily_activity  (cost=0.00..2978.71 rows=8238 width=4) (actual time=0.010..10.095 rows=6957.50 loops=2)
+                          Filter: ((xp > 0) AND (activity_date >= '2026-06-01'::date) AND (activity_date <= '2026-06-30'::date))
+                          Rows Removed by Filter: 87597
+                          Buffers: shared hit=1032
+Planning:
+  Buffers: shared hit=115
+Planning Time: 0.339 ms
+Execution Time: 19.062 ms

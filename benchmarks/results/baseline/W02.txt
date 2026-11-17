@@ -1,0 +1,66 @@
+=== W02 run 1 ===
+Update on lesson_attempts  (cost=147.39..155.41 rows=0 width=0) (actual time=15.280..15.281 rows=0.00 loops=1)
+  Buffers: shared hit=139 read=23 dirtied=79
+  InitPlan 2
+    ->  Result  (cost=146.96..146.97 rows=1 width=8) (actual time=14.993..14.994 rows=1.00 loops=1)
+          Buffers: shared hit=83 read=23 dirtied=77
+          InitPlan 1
+            ->  Limit  (cost=0.42..146.96 rows=1 width=8) (actual time=14.989..14.990 rows=1.00 loops=1)
+                  Buffers: shared hit=83 read=23 dirtied=77
+                  ->  Index Scan Backward using lesson_attempts_pkey on lesson_attempts lesson_attempts_1  (cost=0.42..7620.42 rows=52 width=8) (actual time=14.987..14.988 rows=1.00 loops=1)
+                        Filter: ((completed_at IS NULL) AND (started_at >= '2026-06-30 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                        Rows Removed by Filter: 8301
+                        Index Searches: 1
+                        Buffers: shared hit=83 read=23 dirtied=77
+  ->  Index Scan using lesson_attempts_pkey on lesson_attempts  (cost=0.42..8.44 rows=1 width=20) (actual time=15.020..15.021 rows=1.00 loops=1)
+        Index Cond: (attempt_id = (InitPlan 2).col1)
+        Index Searches: 1
+        Buffers: shared hit=87 read=23 dirtied=77
+Planning:
+  Buffers: shared hit=92
+Planning Time: 0.333 ms
+Execution Time: 16.952 ms
+=== W02 run 2 ===
+Update on lesson_attempts  (cost=147.39..155.41 rows=0 width=0) (actual time=1.849..1.850 rows=0.00 loops=1)
+  Buffers: shared hit=164 dirtied=1
+  InitPlan 2
+    ->  Result  (cost=146.96..146.97 rows=1 width=8) (actual time=1.602..1.603 rows=1.00 loops=1)
+          Buffers: shared hit=106
+          InitPlan 1
+            ->  Limit  (cost=0.42..146.96 rows=1 width=8) (actual time=1.599..1.600 rows=1.00 loops=1)
+                  Buffers: shared hit=106
+                  ->  Index Scan Backward using lesson_attempts_pkey on lesson_attempts lesson_attempts_1  (cost=0.42..7620.42 rows=52 width=8) (actual time=1.598..1.599 rows=1.00 loops=1)
+                        Filter: ((completed_at IS NULL) AND (started_at >= '2026-06-30 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                        Rows Removed by Filter: 8301
+                        Index Searches: 1
+                        Buffers: shared hit=106
+  ->  Index Scan using lesson_attempts_pkey on lesson_attempts  (cost=0.42..8.44 rows=1 width=20) (actual time=1.616..1.618 rows=1.00 loops=1)
+        Index Cond: (attempt_id = (InitPlan 2).col1)
+        Index Searches: 1
+        Buffers: shared hit=112
+Planning:
+  Buffers: shared hit=92
+Planning Time: 0.343 ms
+Execution Time: 1.950 ms
+=== W02 run 3 ===
+Update on lesson_attempts  (cost=147.39..155.41 rows=0 width=0) (actual time=1.797..1.798 rows=0.00 loops=1)
+  Buffers: shared hit=164 dirtied=1
+  InitPlan 2
+    ->  Result  (cost=146.96..146.97 rows=1 width=8) (actual time=1.561..1.561 rows=1.00 loops=1)
+          Buffers: shared hit=106
+          InitPlan 1
+            ->  Limit  (cost=0.42..146.96 rows=1 width=8) (actual time=1.558..1.559 rows=1.00 loops=1)
+                  Buffers: shared hit=106
+                  ->  Index Scan Backward using lesson_attempts_pkey on lesson_attempts lesson_attempts_1  (cost=0.42..7620.42 rows=52 width=8) (actual time=1.557..1.557 rows=1.00 loops=1)
+                        Filter: ((completed_at IS NULL) AND (started_at >= '2026-06-30 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                        Rows Removed by Filter: 8301
+                        Index Searches: 1
+                        Buffers: shared hit=106
+  ->  Index Scan using lesson_attempts_pkey on lesson_attempts  (cost=0.42..8.44 rows=1 width=20) (actual time=1.573..1.574 rows=1.00 loops=1)
+        Index Cond: (attempt_id = (InitPlan 2).col1)
+        Index Searches: 1
+        Buffers: shared hit=112
+Planning:
+  Buffers: shared hit=92
+Planning Time: 0.353 ms
+Execution Time: 1.897 ms
