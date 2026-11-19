@@ -1,0 +1,115 @@
+=== R18 run 1 ===
+Sort  (cost=1126.91..1126.94 rows=11 width=44) (actual time=37.636..37.640 rows=11.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=5 read=238
+  ->  HashAggregate  (cost=1126.61..1126.72 rows=11 width=44) (actual time=37.614..37.619 rows=11.00 loops=1)
+        Group Key: c.title
+        Batches: 1  Memory Usage: 32kB
+        Buffers: shared hit=2 read=238
+        ->  Hash Join  (cost=1.25..751.61 rows=37500 width=36) (actual time=1.316..27.675 rows=37500.00 loops=1)
+              Hash Cond: (e.course_id = c.course_id)
+              Buffers: shared hit=2 read=238
+              ->  Seq Scan on enrollments e  (cost=0.00..614.00 rows=37500 width=10) (actual time=1.261..19.967 rows=37500.00 loops=1)
+                    Buffers: shared hit=1 read=238
+              ->  Hash  (cost=1.11..1.11 rows=11 width=30) (actual time=0.035..0.036 rows=11.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on courses c  (cost=0.00..1.11 rows=11 width=30) (actual time=0.015..0.017 rows=11.00 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=257
+Planning Time: 0.652 ms
+Execution Time: 37.806 ms
+=== R18 run 2 ===
+Sort  (cost=1126.91..1126.94 rows=11 width=44) (actual time=17.396..17.400 rows=11.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=243
+  ->  HashAggregate  (cost=1126.61..1126.72 rows=11 width=44) (actual time=17.375..17.379 rows=11.00 loops=1)
+        Group Key: c.title
+        Batches: 1  Memory Usage: 32kB
+        Buffers: shared hit=240
+        ->  Hash Join  (cost=1.25..751.61 rows=37500 width=36) (actual time=0.040..9.651 rows=37500.00 loops=1)
+              Hash Cond: (e.course_id = c.course_id)
+              Buffers: shared hit=240
+              ->  Seq Scan on enrollments e  (cost=0.00..614.00 rows=37500 width=10) (actual time=0.014..2.360 rows=37500.00 loops=1)
+                    Buffers: shared hit=239
+              ->  Hash  (cost=1.11..1.11 rows=11 width=30) (actual time=0.016..0.018 rows=11.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on courses c  (cost=0.00..1.11 rows=11 width=30) (actual time=0.008..0.010 rows=11.00 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=257
+Planning Time: 0.598 ms
+Execution Time: 17.591 ms
+=== R18 run 3 ===
+Sort  (cost=1126.91..1126.94 rows=11 width=44) (actual time=16.437..16.440 rows=11.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=243
+  ->  HashAggregate  (cost=1126.61..1126.72 rows=11 width=44) (actual time=16.414..16.418 rows=11.00 loops=1)
+        Group Key: c.title
+        Batches: 1  Memory Usage: 32kB
+        Buffers: shared hit=240
+        ->  Hash Join  (cost=1.25..751.61 rows=37500 width=36) (actual time=0.039..9.215 rows=37500.00 loops=1)
+              Hash Cond: (e.course_id = c.course_id)
+              Buffers: shared hit=240
+              ->  Seq Scan on enrollments e  (cost=0.00..614.00 rows=37500 width=10) (actual time=0.014..2.200 rows=37500.00 loops=1)
+                    Buffers: shared hit=239
+              ->  Hash  (cost=1.11..1.11 rows=11 width=30) (actual time=0.016..0.017 rows=11.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on courses c  (cost=0.00..1.11 rows=11 width=30) (actual time=0.008..0.009 rows=11.00 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=257
+Planning Time: 0.623 ms
+Execution Time: 16.605 ms
+=== R18 run 4 ===
+Sort  (cost=1126.91..1126.94 rows=11 width=44) (actual time=20.998..21.000 rows=11.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=243
+  ->  HashAggregate  (cost=1126.61..1126.72 rows=11 width=44) (actual time=20.976..20.980 rows=11.00 loops=1)
+        Group Key: c.title
+        Batches: 1  Memory Usage: 32kB
+        Buffers: shared hit=240
+        ->  Hash Join  (cost=1.25..751.61 rows=37500 width=36) (actual time=0.039..12.239 rows=37500.00 loops=1)
+              Hash Cond: (e.course_id = c.course_id)
+              Buffers: shared hit=240
+              ->  Seq Scan on enrollments e  (cost=0.00..614.00 rows=37500 width=10) (actual time=0.013..2.198 rows=37500.00 loops=1)
+                    Buffers: shared hit=239
+              ->  Hash  (cost=1.11..1.11 rows=11 width=30) (actual time=0.016..0.016 rows=11.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on courses c  (cost=0.00..1.11 rows=11 width=30) (actual time=0.007..0.009 rows=11.00 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=257
+Planning Time: 0.582 ms
+Execution Time: 21.152 ms
+=== R18 run 5 ===
+Sort  (cost=1126.91..1126.94 rows=11 width=44) (actual time=16.787..16.790 rows=11.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=243
+  ->  HashAggregate  (cost=1126.61..1126.72 rows=11 width=44) (actual time=16.765..16.769 rows=11.00 loops=1)
+        Group Key: c.title
+        Batches: 1  Memory Usage: 32kB
+        Buffers: shared hit=240
+        ->  Hash Join  (cost=1.25..751.61 rows=37500 width=36) (actual time=0.040..9.483 rows=37500.00 loops=1)
+              Hash Cond: (e.course_id = c.course_id)
+              Buffers: shared hit=240
+              ->  Seq Scan on enrollments e  (cost=0.00..614.00 rows=37500 width=10) (actual time=0.014..2.288 rows=37500.00 loops=1)
+                    Buffers: shared hit=239
+              ->  Hash  (cost=1.11..1.11 rows=11 width=30) (actual time=0.016..0.016 rows=11.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on courses c  (cost=0.00..1.11 rows=11 width=30) (actual time=0.008..0.009 rows=11.00 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=257
+Planning Time: 0.574 ms
+Execution Time: 16.949 ms

@@ -1,0 +1,150 @@
+=== R23 run 1 ===
+GroupAggregate  (cost=1996.51..1998.67 rows=3 width=13) (actual time=6.244..6.286 rows=2.00 loops=1)
+  Group Key: l.subscription
+  Buffers: shared hit=1277
+  ->  Sort  (cost=1996.51..1997.22 rows=284 width=9) (actual time=6.227..6.243 rows=280.00 loops=1)
+        Sort Key: l.subscription, l.learner_id
+        Sort Method: quicksort  Memory: 33kB
+        Buffers: shared hit=1277
+        ->  Hash Join  (cost=896.38..1984.94 rows=284 width=9) (actual time=4.188..6.042 rows=280.00 loops=1)
+              Hash Cond: (d.learner_id = l.learner_id)
+              Buffers: shared hit=1271
+              ->  Bitmap Heap Scan on daily_activity d  (cost=37.16..1117.30 rows=3209 width=4) (actual time=0.255..1.721 rows=3354.00 loops=1)
+                    Recheck Cond: ((activity_date >= '2026-06-24'::date) AND (xp > 0))
+                    Heap Blocks: exact=890
+                    Buffers: shared hit=895
+                    ->  Bitmap Index Scan on idx_activity_positive_date  (cost=0.00..36.36 rows=3209 width=0) (actual time=0.173..0.173 rows=3354.00 loops=1)
+                          Index Cond: (activity_date >= '2026-06-24'::date)
+                          Index Searches: 1
+                          Buffers: shared hit=5
+              ->  Hash  (cost=826.00..826.00 rows=2657 width=9) (actual time=3.783..3.783 rows=2679.00 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 146kB
+                    Buffers: shared hit=376
+                    ->  Seq Scan on learners l  (cost=0.00..826.00 rows=2657 width=9) (actual time=0.013..3.375 rows=2679.00 loops=1)
+                          Filter: (((subscription)::text = ANY ('{SUPER,MAX}'::text[])) AND ((country_code)::text = 'IN'::text))
+                          Rows Removed by Filter: 27321
+                          Buffers: shared hit=376
+Planning:
+  Buffers: shared hit=316
+Planning Time: 2.085 ms
+Execution Time: 6.414 ms
+=== R23 run 2 ===
+GroupAggregate  (cost=1996.51..1998.67 rows=3 width=13) (actual time=6.474..6.517 rows=2.00 loops=1)
+  Group Key: l.subscription
+  Buffers: shared hit=1277
+  ->  Sort  (cost=1996.51..1997.22 rows=284 width=9) (actual time=6.452..6.468 rows=280.00 loops=1)
+        Sort Key: l.subscription, l.learner_id
+        Sort Method: quicksort  Memory: 33kB
+        Buffers: shared hit=1277
+        ->  Hash Join  (cost=896.38..1984.94 rows=284 width=9) (actual time=4.439..6.271 rows=280.00 loops=1)
+              Hash Cond: (d.learner_id = l.learner_id)
+              Buffers: shared hit=1271
+              ->  Bitmap Heap Scan on daily_activity d  (cost=37.16..1117.30 rows=3209 width=4) (actual time=0.251..1.684 rows=3354.00 loops=1)
+                    Recheck Cond: ((activity_date >= '2026-06-24'::date) AND (xp > 0))
+                    Heap Blocks: exact=890
+                    Buffers: shared hit=895
+                    ->  Bitmap Index Scan on idx_activity_positive_date  (cost=0.00..36.36 rows=3209 width=0) (actual time=0.164..0.164 rows=3354.00 loops=1)
+                          Index Cond: (activity_date >= '2026-06-24'::date)
+                          Index Searches: 1
+                          Buffers: shared hit=5
+              ->  Hash  (cost=826.00..826.00 rows=2657 width=9) (actual time=4.153..4.153 rows=2679.00 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 146kB
+                    Buffers: shared hit=376
+                    ->  Seq Scan on learners l  (cost=0.00..826.00 rows=2657 width=9) (actual time=0.013..3.722 rows=2679.00 loops=1)
+                          Filter: (((subscription)::text = ANY ('{SUPER,MAX}'::text[])) AND ((country_code)::text = 'IN'::text))
+                          Rows Removed by Filter: 27321
+                          Buffers: shared hit=376
+Planning:
+  Buffers: shared hit=316
+Planning Time: 2.282 ms
+Execution Time: 6.657 ms
+=== R23 run 3 ===
+GroupAggregate  (cost=1996.51..1998.67 rows=3 width=13) (actual time=6.312..6.355 rows=2.00 loops=1)
+  Group Key: l.subscription
+  Buffers: shared hit=1277
+  ->  Sort  (cost=1996.51..1997.22 rows=284 width=9) (actual time=6.296..6.312 rows=280.00 loops=1)
+        Sort Key: l.subscription, l.learner_id
+        Sort Method: quicksort  Memory: 33kB
+        Buffers: shared hit=1277
+        ->  Hash Join  (cost=896.38..1984.94 rows=284 width=9) (actual time=4.461..6.124 rows=280.00 loops=1)
+              Hash Cond: (d.learner_id = l.learner_id)
+              Buffers: shared hit=1271
+              ->  Bitmap Heap Scan on daily_activity d  (cost=37.16..1117.30 rows=3209 width=4) (actual time=0.248..1.545 rows=3354.00 loops=1)
+                    Recheck Cond: ((activity_date >= '2026-06-24'::date) AND (xp > 0))
+                    Heap Blocks: exact=890
+                    Buffers: shared hit=895
+                    ->  Bitmap Index Scan on idx_activity_positive_date  (cost=0.00..36.36 rows=3209 width=0) (actual time=0.157..0.157 rows=3354.00 loops=1)
+                          Index Cond: (activity_date >= '2026-06-24'::date)
+                          Index Searches: 1
+                          Buffers: shared hit=5
+              ->  Hash  (cost=826.00..826.00 rows=2657 width=9) (actual time=4.182..4.183 rows=2679.00 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 146kB
+                    Buffers: shared hit=376
+                    ->  Seq Scan on learners l  (cost=0.00..826.00 rows=2657 width=9) (actual time=0.014..3.766 rows=2679.00 loops=1)
+                          Filter: (((subscription)::text = ANY ('{SUPER,MAX}'::text[])) AND ((country_code)::text = 'IN'::text))
+                          Rows Removed by Filter: 27321
+                          Buffers: shared hit=376
+Planning:
+  Buffers: shared hit=316
+Planning Time: 2.625 ms
+Execution Time: 6.492 ms
+=== R23 run 4 ===
+GroupAggregate  (cost=1996.51..1998.67 rows=3 width=13) (actual time=6.456..6.498 rows=2.00 loops=1)
+  Group Key: l.subscription
+  Buffers: shared hit=1277
+  ->  Sort  (cost=1996.51..1997.22 rows=284 width=9) (actual time=6.439..6.455 rows=280.00 loops=1)
+        Sort Key: l.subscription, l.learner_id
+        Sort Method: quicksort  Memory: 33kB
+        Buffers: shared hit=1277
+        ->  Hash Join  (cost=896.38..1984.94 rows=284 width=9) (actual time=4.501..6.264 rows=280.00 loops=1)
+              Hash Cond: (d.learner_id = l.learner_id)
+              Buffers: shared hit=1271
+              ->  Bitmap Heap Scan on daily_activity d  (cost=37.16..1117.30 rows=3209 width=4) (actual time=0.246..1.628 rows=3354.00 loops=1)
+                    Recheck Cond: ((activity_date >= '2026-06-24'::date) AND (xp > 0))
+                    Heap Blocks: exact=890
+                    Buffers: shared hit=895
+                    ->  Bitmap Index Scan on idx_activity_positive_date  (cost=0.00..36.36 rows=3209 width=0) (actual time=0.158..0.158 rows=3354.00 loops=1)
+                          Index Cond: (activity_date >= '2026-06-24'::date)
+                          Index Searches: 1
+                          Buffers: shared hit=5
+              ->  Hash  (cost=826.00..826.00 rows=2657 width=9) (actual time=4.226..4.227 rows=2679.00 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 146kB
+                    Buffers: shared hit=376
+                    ->  Seq Scan on learners l  (cost=0.00..826.00 rows=2657 width=9) (actual time=0.013..3.799 rows=2679.00 loops=1)
+                          Filter: (((subscription)::text = ANY ('{SUPER,MAX}'::text[])) AND ((country_code)::text = 'IN'::text))
+                          Rows Removed by Filter: 27321
+                          Buffers: shared hit=376
+Planning:
+  Buffers: shared hit=316
+Planning Time: 2.159 ms
+Execution Time: 6.630 ms
+=== R23 run 5 ===
+GroupAggregate  (cost=1996.51..1998.67 rows=3 width=13) (actual time=6.275..6.320 rows=2.00 loops=1)
+  Group Key: l.subscription
+  Buffers: shared hit=1277
+  ->  Sort  (cost=1996.51..1997.22 rows=284 width=9) (actual time=6.257..6.275 rows=280.00 loops=1)
+        Sort Key: l.subscription, l.learner_id
+        Sort Method: quicksort  Memory: 33kB
+        Buffers: shared hit=1277
+        ->  Hash Join  (cost=896.38..1984.94 rows=284 width=9) (actual time=4.274..6.074 rows=280.00 loops=1)
+              Hash Cond: (d.learner_id = l.learner_id)
+              Buffers: shared hit=1271
+              ->  Bitmap Heap Scan on daily_activity d  (cost=37.16..1117.30 rows=3209 width=4) (actual time=0.244..1.640 rows=3354.00 loops=1)
+                    Recheck Cond: ((activity_date >= '2026-06-24'::date) AND (xp > 0))
+                    Heap Blocks: exact=890
+                    Buffers: shared hit=895
+                    ->  Bitmap Index Scan on idx_activity_positive_date  (cost=0.00..36.36 rows=3209 width=0) (actual time=0.153..0.154 rows=3354.00 loops=1)
+                          Index Cond: (activity_date >= '2026-06-24'::date)
+                          Index Searches: 1
+                          Buffers: shared hit=5
+              ->  Hash  (cost=826.00..826.00 rows=2657 width=9) (actual time=3.999..3.999 rows=2679.00 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 146kB
+                    Buffers: shared hit=376
+                    ->  Seq Scan on learners l  (cost=0.00..826.00 rows=2657 width=9) (actual time=0.013..3.553 rows=2679.00 loops=1)
+                          Filter: (((subscription)::text = ANY ('{SUPER,MAX}'::text[])) AND ((country_code)::text = 'IN'::text))
+                          Rows Removed by Filter: 27321
+                          Buffers: shared hit=376
+Planning:
+  Buffers: shared hit=316
+Planning Time: 2.438 ms
+Execution Time: 6.461 ms
