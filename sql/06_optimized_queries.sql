@@ -288,11 +288,19 @@ WHERE lm.learner_id = r.learner_id AND lm.week_start = r.week_start;
 
 -- @W05
 -- Achievements catch-up: award the "100 XP" badge to every learner who has 100+ XP but not the badge
+-- Phase 5 rewrite: on the large data 2/3 of the 100+ XP learners already have the badge
+-- (159,646 of 239,403), and each of them cost a speculative insert + conflict check.
+-- Aggregate first, then drop existing badge holders with an anti-join, so only the
+-- 79,757 new rows reach the INSERT. Same rows inserted (proof in 05_scalability_report.md);
+-- ON CONFLICT is kept as a safety net against a concurrent run.
+WITH badge AS (SELECT achievement_id FROM achievements WHERE code = 'XP_100'),
+     xp100 AS (SELECT learner_id FROM enrollments GROUP BY learner_id HAVING sum(total_xp) >= 100)
 INSERT INTO learner_achievements (learner_id, achievement_id, earned_at)
-SELECT e.learner_id, (SELECT achievement_id FROM achievements WHERE code = 'XP_100'), '2026-07-01 00:00:00+05:30'
-FROM enrollments e
-GROUP BY e.learner_id
-HAVING sum(e.total_xp) >= 100
+SELECT x.learner_id, b.achievement_id, '2026-07-01 00:00:00+05:30'
+FROM xp100 x
+CROSS JOIN badge b
+WHERE NOT EXISTS (SELECT 1 FROM learner_achievements la
+                  WHERE la.achievement_id = b.achievement_id AND la.learner_id = x.learner_id)
 ON CONFLICT (learner_id, achievement_id) DO NOTHING;
 
 -- @END

@@ -1,0 +1,45 @@
+=== R13 run 1 ===
+Hash Right Anti Join  (cost=24553.00..48532.46 rows=540363 width=22) (actual time=354.547..550.877 rows=485879.00 loops=1)
+  Hash Cond: (r.referred_by = l.learner_id)
+  Buffers: shared hit=1877 read=13197, temp read=3182 written=3182
+  ->  Seq Scan on learners r  (cost=0.00..13537.00 rows=600000 width=4) (actual time=0.048..87.674 rows=600000.00 loops=1)
+        Buffers: shared hit=1045 read=6492
+  ->  Hash  (cost=13537.00..13537.00 rows=600000 width=22) (actual time=200.653..200.655 rows=600000.00 loops=1)
+        Buckets: 131072  Batches: 8  Memory Usage: 5002kB
+        Buffers: shared hit=832 read=6705, temp written=2709
+        ->  Seq Scan on learners l  (cost=0.00..13537.00 rows=600000 width=22) (actual time=0.240..86.305 rows=600000.00 loops=1)
+              Buffers: shared hit=832 read=6705
+Planning:
+  Buffers: shared hit=215
+Planning Time: 2.949 ms
+Execution Time: 572.439 ms
+=== R13 run 2 ===
+Hash Right Anti Join  (cost=24553.00..48532.46 rows=540363 width=22) (actual time=356.506..552.046 rows=485879.00 loops=1)
+  Hash Cond: (r.referred_by = l.learner_id)
+  Buffers: shared hit=2729 read=12345, temp read=3182 written=3182
+  ->  Seq Scan on learners r  (cost=0.00..13537.00 rows=600000 width=4) (actual time=0.059..86.894 rows=600000.00 loops=1)
+        Buffers: shared hit=1471 read=6066
+  ->  Hash  (cost=13537.00..13537.00 rows=600000 width=22) (actual time=207.087..207.088 rows=600000.00 loops=1)
+        Buckets: 131072  Batches: 8  Memory Usage: 5002kB
+        Buffers: shared hit=1258 read=6279, temp written=2709
+        ->  Seq Scan on learners l  (cost=0.00..13537.00 rows=600000 width=22) (actual time=0.132..84.731 rows=600000.00 loops=1)
+              Buffers: shared hit=1258 read=6279
+Planning:
+  Buffers: shared hit=215
+Planning Time: 2.608 ms
+Execution Time: 573.819 ms
+=== R13 run 3 ===
+Hash Right Anti Join  (cost=24553.00..48532.46 rows=540363 width=22) (actual time=348.147..539.201 rows=485879.00 loops=1)
+  Hash Cond: (r.referred_by = l.learner_id)
+  Buffers: shared hit=3581 read=11493, temp read=3182 written=3182
+  ->  Seq Scan on learners r  (cost=0.00..13537.00 rows=600000 width=4) (actual time=0.063..84.669 rows=600000.00 loops=1)
+        Buffers: shared hit=1897 read=5640
+  ->  Hash  (cost=13537.00..13537.00 rows=600000 width=22) (actual time=202.470..202.472 rows=600000.00 loops=1)
+        Buckets: 131072  Batches: 8  Memory Usage: 5002kB
+        Buffers: shared hit=1684 read=5853, temp written=2709
+        ->  Seq Scan on learners l  (cost=0.00..13537.00 rows=600000 width=22) (actual time=0.120..85.274 rows=600000.00 loops=1)
+              Buffers: shared hit=1684 read=5853
+Planning:
+  Buffers: shared hit=215
+Planning Time: 2.785 ms
+Execution Time: 560.620 ms

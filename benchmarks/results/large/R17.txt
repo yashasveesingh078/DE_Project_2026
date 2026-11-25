@@ -1,0 +1,96 @@
+=== R17 run 1 ===
+Sort  (cost=60661.97..60661.97 rows=3 width=46) (actual time=568.846..571.415 rows=3.00 loops=1)
+  Sort Key: (round(((100.0 * (count(*) FILTER (WHERE is_perfect))::numeric) / (count(*))::numeric), 2)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=1696 read=32060
+  ->  Finalize GroupAggregate  (cost=60661.01..60661.94 rows=3 width=46) (actual time=568.826..571.398 rows=3.00 loops=1)
+        Group Key: device
+        Buffers: shared hit=1693 read=32060
+        ->  Gather Merge  (cost=60661.01..60661.82 rows=7 width=22) (actual time=568.811..571.380 rows=9.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=1693 read=32060
+              ->  Sort  (cost=59660.98..59660.99 rows=3 width=22) (actual time=561.241..561.243 rows=3.00 loops=3)
+                    Sort Key: device
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=1693 read=32060
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    Worker 1:  Sort Method: quicksort  Memory: 25kB
+                    ->  Partial HashAggregate  (cost=59660.93..59660.96 rows=3 width=22) (actual time=561.206..561.207 rows=3.00 loops=3)
+                          Group Key: device
+                          Batches: 1  Memory Usage: 32kB
+                          Buffers: shared hit=1677 read=32060
+                          Worker 0:  Batches: 1  Memory Usage: 32kB
+                          Worker 1:  Batches: 1  Memory Usage: 32kB
+                          ->  Parallel Seq Scan on lesson_attempts  (cost=0.00..56288.41 rows=449669 width=7) (actual time=193.830..360.559 rows=352955.33 loops=3)
+                                Filter: ((completed_at IS NOT NULL) AND (started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone))
+                                Rows Removed by Filter: 849811
+                                Buffers: shared hit=1677 read=32060
+Planning:
+  Buffers: shared hit=177
+Planning Time: 0.416 ms
+Execution Time: 571.585 ms
+=== R17 run 2 ===
+Sort  (cost=60661.97..60661.97 rows=3 width=46) (actual time=570.221..571.657 rows=3.00 loops=1)
+  Sort Key: (round(((100.0 * (count(*) FILTER (WHERE is_perfect))::numeric) / (count(*))::numeric), 2)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=1973 read=31783
+  ->  Finalize GroupAggregate  (cost=60661.01..60661.94 rows=3 width=46) (actual time=570.197..571.637 rows=3.00 loops=1)
+        Group Key: device
+        Buffers: shared hit=1970 read=31783
+        ->  Gather Merge  (cost=60661.01..60661.82 rows=7 width=22) (actual time=570.178..571.616 rows=9.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=1970 read=31783
+              ->  Sort  (cost=59660.98..59660.99 rows=3 width=22) (actual time=553.801..553.802 rows=3.00 loops=3)
+                    Sort Key: device
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=1970 read=31783
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    Worker 1:  Sort Method: quicksort  Memory: 25kB
+                    ->  Partial HashAggregate  (cost=59660.93..59660.96 rows=3 width=22) (actual time=553.763..553.764 rows=3.00 loops=3)
+                          Group Key: device
+                          Batches: 1  Memory Usage: 32kB
+                          Buffers: shared hit=1954 read=31783
+                          Worker 0:  Batches: 1  Memory Usage: 32kB
+                          Worker 1:  Batches: 1  Memory Usage: 32kB
+                          ->  Parallel Seq Scan on lesson_attempts  (cost=0.00..56288.41 rows=449669 width=7) (actual time=182.341..338.950 rows=352955.33 loops=3)
+                                Filter: ((completed_at IS NOT NULL) AND (started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone))
+                                Rows Removed by Filter: 849811
+                                Buffers: shared hit=1954 read=31783
+Planning:
+  Buffers: shared hit=177
+Planning Time: 0.416 ms
+Execution Time: 571.831 ms
+=== R17 run 3 ===
+Sort  (cost=60661.97..60661.97 rows=3 width=46) (actual time=556.183..559.578 rows=3.00 loops=1)
+  Sort Key: (round(((100.0 * (count(*) FILTER (WHERE is_perfect))::numeric) / (count(*))::numeric), 2)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2250 read=31506
+  ->  Finalize GroupAggregate  (cost=60661.01..60661.94 rows=3 width=46) (actual time=556.164..559.561 rows=3.00 loops=1)
+        Group Key: device
+        Buffers: shared hit=2247 read=31506
+        ->  Gather Merge  (cost=60661.01..60661.82 rows=7 width=22) (actual time=556.150..559.545 rows=9.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=2247 read=31506
+              ->  Sort  (cost=59660.98..59660.99 rows=3 width=22) (actual time=548.326..548.327 rows=3.00 loops=3)
+                    Sort Key: device
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=2247 read=31506
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    Worker 1:  Sort Method: quicksort  Memory: 25kB
+                    ->  Partial HashAggregate  (cost=59660.93..59660.96 rows=3 width=22) (actual time=548.290..548.292 rows=3.00 loops=3)
+                          Group Key: device
+                          Batches: 1  Memory Usage: 32kB
+                          Buffers: shared hit=2231 read=31506
+                          Worker 0:  Batches: 1  Memory Usage: 32kB
+                          Worker 1:  Batches: 1  Memory Usage: 32kB
+                          ->  Parallel Seq Scan on lesson_attempts  (cost=0.00..56288.41 rows=449669 width=7) (actual time=185.729..335.695 rows=352955.33 loops=3)
+                                Filter: ((completed_at IS NOT NULL) AND (started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone))
+                                Rows Removed by Filter: 849811
+                                Buffers: shared hit=2231 read=31506
+Planning:
+  Buffers: shared hit=177
+Planning Time: 0.409 ms
+Execution Time: 559.750 ms
